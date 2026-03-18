@@ -32,7 +32,6 @@ struct AwaitBeispielView: View {
                 
                 Text("Colors: \(viewModel.colors2)")
                 
-                
                 AsyncImage(url: URL(string: viewModel.dogImageString)) { image in
                     image
                         .resizable()

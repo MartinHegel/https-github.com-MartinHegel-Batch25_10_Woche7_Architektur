@@ -9,5 +9,5 @@ import Foundation
 
 
 struct Weather: Codable {
-    
+    var wetterTemp = 100
 }

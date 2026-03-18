@@ -12,13 +12,19 @@ import Foundation
 @MainActor
 class APIViewModel {
     
+    
+    // Variablen
+    
+    private let colorRepo = ColorRepo()
+    private let dogRepo = DogRepo()
+    
     var message = ""
     var colors2: [APIColor] = []
     var dogImageString = ""
     var count = 0
     
-    init() {}
-
+ 
+// Funktionen Allgemein
     
     func increment() {
             count += 1
@@ -41,24 +47,13 @@ class APIViewModel {
     
     
     
-    func getColorsFromAPI() async throws -> [APIColor] {
-        let baseURL = "https://www.thecolorapi.com/scheme?hex=0047AB&count=3"
-        
-        guard let url = URL(string: baseURL) else {
-            throw HTTPError.invalidURL
-        }
-        
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let result = try JSONDecoder().decode(ColorResult.self, from: data)
-        
-        return result.colors
-        
-    }
+    
+    // Colors Funktion
     
     func fetchColors() {
         Task {
             do {
-                colors2 = try await getColorsFromAPI()
+                colors2 = try await colorRepo.getColorsFromAPI()
             } catch let error as HTTPError {
                 print(error.message)
             } catch {
@@ -67,25 +62,12 @@ class APIViewModel {
         }
     }
     
-    private func getDogImage() async throws -> DogImage {
-        let baseURL = "https://dog.ceo/api/breeds/image/random"
-        
-        guard let url = URL(string: baseURL) else {
-            throw HTTPError.invalidURL
-        }
-        
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let result = try JSONDecoder().decode(DogImage.self, from: data)
-        
-        
-        return result
-        
-    }
+    
     
     func fetchDogPic() {
         Task {
             do {
-                dogImageString = try await getDogImage().message
+                dogImageString = try await dogRepo.getDogImage().message
             } catch {
                 print(HTTPError.invalidURL)
             }
@@ -93,29 +75,7 @@ class APIViewModel {
     }
     
     
-    var weatherAPIKey = "1223344"
-    
-    func getWeatherFromAPI() async throws -> Weather {
-        let baseURL = "https://api.openweathermap.org/data/2.5/weather?lat=52.5&lon=13.4&appid=\(Secrets.apiWeatherKey)&units=metric"
-        
-        guard let url = URL(string: baseURL) else {
-            throw HTTPError.invalidURL
-        }
-        
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let result = try JSONDecoder().decode(Weather.self, from: data)
-        
-        return result
-        
-    }
-    
-    
-    func TestFunc() {
-        
-    }
 
-    
-    
-    
+
     
 }
