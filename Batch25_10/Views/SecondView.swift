@@ -24,5 +24,6 @@ struct SecondView: View {
 }
 
 #Preview {
-    SecondView(viewModel: APIViewModel())
+    SecondView(viewModel: APIViewModel(dogRepo: LocalDogRepo()))
+       
 }

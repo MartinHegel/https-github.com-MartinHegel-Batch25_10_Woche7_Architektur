@@ -11,6 +11,7 @@ struct AwaitBeispielView: View {
     
     @Environment(APIViewModel.self) var viewModel
     
+    
     var body: some View {
         NavigationStack{
             ScrollView {
@@ -19,6 +20,7 @@ struct AwaitBeispielView: View {
                 
                 Button("Drücken") {
                     viewModel.increment()
+                    print(viewModel.dogImageString)
                 }
                 
                 
@@ -28,6 +30,7 @@ struct AwaitBeispielView: View {
                 
                 NavigationLink("Hier gehts lang ->") {
                     SecondView(viewModel: viewModel)
+                
                 }
                 
                 Text("Colors: \(viewModel.colors2)")
@@ -57,4 +60,5 @@ struct AwaitBeispielView: View {
 
 #Preview {
     AwaitBeispielView()
+        .environment(APIViewModel(dogRepo: LocalDogRepo()))
 }

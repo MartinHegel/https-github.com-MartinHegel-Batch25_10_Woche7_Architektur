@@ -11,20 +11,22 @@ import SwiftUI
 struct Batch25_10App: App {
     
     
-    @State var viewModel: APIViewModel = APIViewModel()
+    @State var dogViewModel: APIViewModel = APIViewModel(dogRepo: DogRepoImpl())
     
+   
     
+
     var body: some Scene {
         WindowGroup {
             
             TabView {
                 Tab {
                     StartView()
-                        .environment(viewModel)
+                        .environment(dogViewModel)
                 }
                 Tab {
                     SettingsView()
-                        .environment(viewModel)
+                        .environment(dogViewModel)
                 }
             }
                 

@@ -8,7 +8,7 @@
 import Foundation
 
 
-class DogRepo {
+class DogRepoImpl: DogRepository {
     
    func getDogImage() async throws -> DogImage {
         let baseURL = "https://dog.ceo/api/breeds/image/random"

@@ -16,12 +16,17 @@ class APIViewModel {
     // Variablen
     
     private let colorRepo = ColorRepo()
-    private let dogRepo = DogRepo()
+    private let dogRepo: DogRepository
     
     var message = ""
     var colors2: [APIColor] = []
     var dogImageString = ""
     var count = 0
+    
+    init(dogRepo: DogRepository) {
+        self.dogRepo = dogRepo
+        
+    }
     
  
 // Funktionen Allgemein
@@ -75,7 +80,15 @@ class APIViewModel {
     }
     
     
-
+    func fetchDogPic(using dogRepo: DogRepository) {
+        Task {
+            do {
+                dogImageString = try await dogRepo.getDogImage().message
+            } catch {
+                print(HTTPError.invalidURL)
+            }
+        }
+    }
 
     
 }
