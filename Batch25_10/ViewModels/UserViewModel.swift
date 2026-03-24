@@ -11,7 +11,11 @@ import FirebaseAuth
 
 @Observable
 @MainActor
-class UserViewModel {
+class UserViewModel{
+    
+    init() {
+        self.checkAuth()
+    }
     
     private let auth = Auth.auth()
     var user: User?
@@ -31,10 +35,52 @@ class UserViewModel {
             }
         }
     }
-    
-    
-    func loggOutUser() {
-        self.user = nil
+  
+
+    private func checkAuth() {
+        guard let currentUser = self.auth.currentUser else {
+            print("Not logged in")
+            return
+        }
+        
+        self.user = currentUser
     }
+
+    func registerUser(withEmail email: String, password: String) {
+        Task {
+            do {
+                let result = try await self.auth.createUser(withEmail: email, password: password)
+                self.user = result.user
+            } catch {
+              
+                print(HTTPError.noUser)
+            }
+        }
+    }
+    
+    func loginUser(withEmail email: String, password: String) {
+        Task {
+            do {
+                let result = try await self.auth.signIn(withEmail: email, password: password)
+                self.user = result.user
+            } catch {
+                print(HTTPError.noUser)
+            }
+        }
+    }
+
+    
+    
+    
+    func logOutUser() {
+        do {
+            try self.auth.signOut()
+            self.user = nil
+            print("User wurde abgemeldet!")
+        } catch {
+            print(HTTPError.noUser)
+        }
+    }
+
     
 }

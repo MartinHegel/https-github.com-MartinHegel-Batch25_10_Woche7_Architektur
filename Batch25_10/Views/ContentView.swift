@@ -26,7 +26,7 @@ struct ContentView: View {
                 }
             }
         } else {
-            LogginView(userViewModel: userViewModel)
+            LogInView(userViewModel: userViewModel)
         }
     }
 }

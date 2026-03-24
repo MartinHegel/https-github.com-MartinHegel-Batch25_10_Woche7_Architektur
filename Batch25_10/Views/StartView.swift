@@ -21,7 +21,7 @@ struct StartView: View {
             }
             
             Button("Abmelden"){
-                userViewModel.loggOutUser()
+                userViewModel.logOutUser()
             }
         
             
