@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct StartView: View {
+    
+    var userViewModel: UserViewModel
+    
     var body: some View {
       
         
@@ -17,10 +20,15 @@ struct StartView: View {
                 AwaitBeispielView()
             }
             
+            Button("Abmelden"){
+                userViewModel.loggOutUser()
+            }
+        
+            
         }
     }
 }
 
 #Preview {
-    StartView()
+    StartView(userViewModel: UserViewModel())
 }

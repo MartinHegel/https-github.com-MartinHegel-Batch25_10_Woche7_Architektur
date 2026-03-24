@@ -9,13 +9,14 @@ import Foundation
 
 
 enum HTTPError: Error {
-    case invalidURL, fetchFailed
+    case invalidURL, fetchFailed, noUser
     
     
     var message: String {
         switch self {
         case .invalidURL: "Die URL ist ungültig"
         case .fetchFailed: "Laden ist fehlgeschlagen"
+        case .noUser: "Anmeldung fehlgeschlagen"
         }
     }
 }

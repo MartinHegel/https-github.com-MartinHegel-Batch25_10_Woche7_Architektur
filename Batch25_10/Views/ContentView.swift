@@ -8,14 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var dogViewModel: APIViewModel = APIViewModel(dogRepo: DogRepoImpl())
+    @State var userViewModel: UserViewModel = UserViewModel()
+    
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        if userViewModel.isUserLoggedIn {
+            TabView {
+                Tab {
+                    StartView(userViewModel: userViewModel)
+                        .environment(dogViewModel)
+                }
+                Tab {
+                    SettingsView()
+                        .environment(dogViewModel)
+                }
+            }
+        } else {
+            LogginView(userViewModel: userViewModel)
         }
-        .padding()
     }
 }
 

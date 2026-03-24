@@ -60,5 +60,5 @@ struct AwaitBeispielView: View {
 
 #Preview {
     AwaitBeispielView()
-        .environment(APIViewModel(dogRepo: LocalDogRepo()))
+     
 }

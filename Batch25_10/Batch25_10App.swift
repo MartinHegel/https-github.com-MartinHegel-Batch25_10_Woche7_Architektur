@@ -6,30 +6,37 @@
 //
 
 import SwiftUI
+import Firebase
+
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    FirebaseApp.configure()
+
+    return true
+  }
+}
+
+
 
 @main
 struct Batch25_10App: App {
     
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
-    @State var dogViewModel: APIViewModel = APIViewModel(dogRepo: DogRepoImpl())
     
-   
+    /*
+    init() {
+        FirebaseConfiguration.shared.setLoggerLevel(.min)
+        FirebaseApp.configure()
+    }
+     */
     
 
     var body: some Scene {
         WindowGroup {
-            
-            TabView {
-                Tab {
-                    StartView()
-                        .environment(dogViewModel)
-                }
-                Tab {
-                    SettingsView()
-                        .environment(dogViewModel)
-                }
-            }
-                
+           ContentView()
         }
     }
 }
